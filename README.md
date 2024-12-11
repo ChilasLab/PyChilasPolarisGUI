@@ -35,3 +35,6 @@ Chilas POLARIS
 
 ## Deployment
 Example code to make one file executable.
+```
+pyinstaller --name "Chilas POLARIS" --windowed --onefile --add-data "background.png;." --add-data "chilas_logo.png;." --add-data "Control.qml;." --icon "icon.ico" --add-data "icon.ico;." --add-data "main.qml;." --add-data "PageCntrlPnl.qml;." --add-data "polaris_logo.png;." --add-data "PopupInfo.qml;." --add-data "Splash.qml;." --add-data "LICENSE;." main.py
+```
