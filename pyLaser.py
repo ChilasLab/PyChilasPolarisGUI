@@ -137,116 +137,78 @@ class pyLaser(QObject):
             }
 
     def _getSN(self):
-        if(self.ser is not None):
-            self.write(0x01, 0x03, 0x0018, 0x0008)
-            return ("SN"+self.read(8)["data"].decode('ascii'))
-        else:
-            return "0"
+        self.write(0x01, 0x03, 0x0018, 0x0008)
+        return ("SN"+self.read(8)["data"].decode('ascii'))
 
     def _getVer(self):
-        if(self.ser is not None):
-            self.write(0x01, 0x03, 0x0028, 0x0006)
-            return self.read(6)["data"].decode('ascii')
-        else:
-            return "0"
+        self.write(0x01, 0x03, 0x0028, 0x0006)
+        return self.read(6)["data"].decode('ascii')
 
     def _getPcbTemp(self):
-        if(self.ser is not None):
-            self.write(0x01, 0x03, 0x007a, 0x0004)
-            return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
-        else:
-            return "0"
+        self.write(0x01, 0x03, 0x007a, 0x0004)
+        return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
 
     def _getTecTemp(self):
-        if(self.ser is not None):
-            self.write(0x01, 0x03, 0x007e, 0x0004)
-            return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
-        else:
-            return "0"
+        self.write(0x01, 0x03, 0x007e, 0x0004)
+        return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
 
     def _getTecTempSet(self):
-        if(self.ser is not None):
-            self.write(0x01, 0x03, 0x0072, 0x0004)
-            return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
-        else:
-            return "0"
+        self.write(0x01, 0x03, 0x0072, 0x0004)
+        return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
 
     def _getLdCur(self):
-        if(self.ser is not None):
-            self.write(0x01, 0x03, 0x0082, 0x0004)
-            return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
-        else:
-            return "0"
+        self.write(0x01, 0x03, 0x0082, 0x0004)
+        return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
 
     def _getLdCurSet(self):
-        if(self.ser is not None):
-            self.write(0x01, 0x03, 0x0076, 0x0004)
-            return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
-        else:
-            return "0"
+        self.write(0x01, 0x03, 0x0076, 0x0004)
+        return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
 
     def _getTecCur(self):
-        if(self.ser is not None):
-            self.write(0x01, 0x03, 0x008a, 0x0004)
-            return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
-        else:
-            return "0"
+        self.write(0x01, 0x03, 0x008a, 0x0004)
+        return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
 
     def _mode(self, arg=None):
-        if(self.ser is not None):
-            if arg is None:
-                self.write(0x01, 0x03, 0x008e, 0x0001)
-            else:
-                if arg[0]:
-                    self.write(0x01, 0x10, 0x008e, 0x0001, 0x01)
-                else:
-                    self.write(0x01, 0x10, 0x008e, 0x0001, 0x00)
-            return str(int.from_bytes(self.read(1)["data"], 'big') & 1)
+        if arg is None:
+            self.write(0x01, 0x03, 0x008e, 0x0001)
         else:
-            return "0"
+            if arg[0]:
+                self.write(0x01, 0x10, 0x008e, 0x0001, 0x01)
+            else:
+                self.write(0x01, 0x10, 0x008e, 0x0001, 0x00)
+        return str(int.from_bytes(self.read(1)["data"], 'big') & 1)
 
     def _setLd(self, arg):
-        if(self.ser is not None):
-            if arg[0]:
-                self.write(0x01, 0x05, 0x0002, 0x0001)
-            else:
-                self.write(0x01, 0x05, 0x0002, 0x0000)
-            return str(int.from_bytes(self.read(0)["data"], 'big') & 1)
+        if arg[0]:
+            self.write(0x01, 0x05, 0x0002, 0x0001)
         else:
-            return "0"
+            self.write(0x01, 0x05, 0x0002, 0x0000)
+        return str(int.from_bytes(self.read(0)["data"], 'big') & 1)
 
     def _setTecTemp(self, arg):
-        if(self.ser is not None):
-            self.write(0x01, 0x10, 0x0072, 0x0004, arg[0], cf=1)
-            return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
-
-        else:
-            return "0"
+        self.write(0x01, 0x10, 0x0072, 0x0004, arg[0], cf=1)
+        return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
 
     def _setLdCur(self, arg):
-        if(self.ser is not None):
-            self.write(0x01, 0x10, 0x0076, 0x0004, arg[0], cf=1)
-            return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
-        else:
-            return "0"
+        self.write(0x01, 0x10, 0x0076, 0x0004, arg[0], cf=1)
+        return "{:.2f}".format(struct.unpack('>f', self.read(4)["data"])[0])
 
     def _getDevStat(self):
-        if(self.ser is not None):
-            self.write(0x01, 0x01, 0x0000, 0x0003)
-            return str(int.from_bytes(self.read(0)["data"], 'big'))
-        else:
-            return "0"
+        self.write(0x01, 0x01, 0x0000, 0x0003)
+        return str(int.from_bytes(self.read(0)["data"], 'big'))
 
     @Slot(str, result=str)
     @Slot(str, list, result=str)
     def _executor(self, func: str, args: list=None):
-        try:
-            if args is None:
-                future = self.executor.submit(self.gui_func[func])
-            else:
-                future = self.executor.submit(self.gui_func[func], args)
-            return future.result()
-        except serial.SerialException as e:
-            print(str(e))
+        if(self.ser is not None):
+            try:
+                if args is None:
+                    future = self.executor.submit(self.gui_func[func])
+                else:
+                    future = self.executor.submit(self.gui_func[func], args)
+                return future.result()
+            except serial.SerialException as e:
+                print(str(e))
+                return "0"
+        else:
             return "0"
-
