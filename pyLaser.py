@@ -90,17 +90,17 @@ class pyLaser(QObject):
             elif (cf == 1):
                 command += struct.pack('>f', d)
         command += self.crcCheck(command).to_bytes(2, 'little')
-        print("Trying to send %s" % command.hex())
+        #print("Trying to send %s" % command.hex())
         if(self.ser is not None):
             self.ser.write(command)
-            print("%s sent." % command.hex())
+            #print("%s sent." % command.hex())
         else:
             return "0"
 
     def read(self, dl=0):
         if(self.ser is not None):
             resp = self.ser.read(1+1+2+2+dl+2)
-            print("%s received." % resp.hex())
+            #print("%s received." % resp.hex())
             parsedResp = self.parseResp(resp)
             if not int.from_bytes(parsedResp["crc_received"], 'little') == self.crcCheck(resp[:-2]):
                 print("CRC Fail! Expected CRC: %#x, got %#x" % (self.crcCheck(resp[:-2]), int.from_bytes(parsedResp["crc_received"], 'little')))
