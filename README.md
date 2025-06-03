@@ -1,7 +1,6 @@
+# pyChilasLasersGUI
 
-# LS
-
-Laser Software
+This repository contains the Python code for the Graphical User Interface (GUI) for control of the Chilas POLARIS lasers.
 
 ## Table of Contents
 
