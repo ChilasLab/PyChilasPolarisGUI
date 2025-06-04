@@ -67,7 +67,7 @@ Popup {
         }
 
         Text {
-            text: "The source code for this application is available on GitHub: https://github.com/insigma-opensource/LS"
+            text: "The source code for this application is available on GitHub: https://github.com/ChilasLab/PyChilasPolarisGUI"
             wrapMode: Text.Wrap
             width: parent.width
         }
