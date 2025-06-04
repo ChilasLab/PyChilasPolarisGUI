@@ -36,13 +36,13 @@ Popup {
         spacing: 10
 
         Text {
-            text: "Laser Software (LS) v1.0"
+            text: "Chilas Polaris v1.0"
             font.bold: true
             width: parent.width
         }
 
         Text {
-            text: "LS is an open-source application that helps users control laser via serial commands."
+            text: "Chilas Polaris is an open-source application that helps users control laser via serial commands."
             wrapMode: Text.Wrap
             width: parent.width
         }
